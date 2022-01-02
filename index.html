@@ -17,7 +17,7 @@
         </h3>
     </header>
     <main class="page-content">
-        <form id="question-content">
+        <div id="question-content">
 
             <h2 id="question-text"></h2>
 
@@ -30,7 +30,17 @@
 
             <h3 id="score">Score:</h3>
 
-        </form>
+        </div>
+
+        <div id="high-scores">
+            <h2>High Scores</h2>
+            <p>Well done. Your final score is <span id="score"></span></p>
+            <form class="initial-form" id="initial-form">
+                <label for="initials">Enter your initials:</label>
+                <input type="text" name="initials" id="initials" placeholder="your initials">
+                <button id="initials-btn">Submit</button>
+            </form>
+        </div>
     </main> 
     <footer>
         &copy; 2022 by Caroline Kyle

@@ -35,19 +35,22 @@ var questions = [
 // initialize variables 
 var score = 0;
 var quizOver = false;
+var time_remaining = 121;
 
 // Reference variables to html 
-var timer = document.querySelector("#timer");
 var questionContentEl = document.querySelector("#questions-list");
 var startBtn = document.querySelector("#start-btn")
 
 
 // function to start timer/quiz
-var time_remaining = 120;
+
 
 var startQuiz = function(){
     displayQuestion();
+    countdownTimer();
 };
+
+document.querySelector("#start-btn").addEventListener("click", startQuiz);
 
 // create function to display quiz questions 
 
@@ -66,7 +69,7 @@ var displayQuestion = function(){
     }   
 }
 
-document.querySelector("#answer-options").addEventListener("click", checkAnswer)
+
 
 // determine if content for selected button and correct answer is the same 
 var correctAnswer = function(answerBtn){
@@ -90,15 +93,77 @@ var checkAnswer = function(event){
            endQuiz();
        }
     }
+
+    // go on to next question 
+    currentQuestion++;
+
+    // if there are no more questions, end quiz
+    if (currentQuestion < questions.length){
+        displayQuestion();
+    }
+    else{
+        endQuiz();
+    }
 }
 
+document.querySelector("#answer-options").addEventListener("click", checkAnswer)
 
-// loop through series of questions 
+// create a countdown function for the timer
 
-// subtract time bc incorrect question
+var countdownTimer = function(){
+    time_remaining--;
+    if (time_remaining < 0) {
+        endQuiz();
+    }
+    let timerDisplay = document.querySelector("#timer")
+    timerDisplay.textContent = time_remaining;
+}
 
-// quiz ends when all questions are answered or timer is over
+var endQuiz = function(){
+    let finalScore = document.querySelector("#score")
+    finalScore.textContent = score;
+}
 
-// save initials and high score to local storage 
+// create function to save score of user
+var saveScore = function(event){
+    // disable refresh 
+    event.preventDefault();
 
-startQuiz();
+    // cannot have initals be null 
+    let initials = document.querySelector("#initials");
+    if (!initials.value){
+        alert("Please enter your initials.");
+        return;
+    }
+
+    let highScores = {
+        initials: initials.value,
+        highScore: score
+    };
+}
+
+let submitButton = document.querySelector("#initials-btn")
+
+submitButton.addEventListener("click", saveScore);
+
+
+// update leaderboard to local storage
+var updateLeaderboard = function(highScores){
+    let leaderboard = getLeaderboard();
+    leaderboard.push(highScores);
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+// get leaderboard from local storage 
+var getLeaderboard = function(){
+    let storedLeaderboard = localStorage.getItem("leaderboard");
+    // if nothing in local storage add to existing 
+    if (storedLeaderboard !== null){
+        let leaderboard = JSON.parse(storedLeaderboard);
+        return leaderboard;
+    }
+    else{
+        leaderboard = [];
+    }
+    return leaderboard;
+}

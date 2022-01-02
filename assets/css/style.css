@@ -4,10 +4,9 @@
     box-sizing: border-box;
 }
 
-main{
+.page-content{
     background-color: mintcream;
-    display: flex;
-    justify-content: center;
+    text-align: center;
 }
 
 header, footer{
@@ -30,12 +29,25 @@ header, footer{
     border-radius: 10px;
     position: relative;
     top: -3px;
-    box-shadow: 0.2s5px 3px grey;
+    box-shadow: 0.25px 3px grey;
 }
 
-.start-btn:hover{
+.start-btn:hover, .option-btn:hover{
     background: navy;
     color: moccasin;
     text-shadow: none;
-    text-decoration:underline;
+}
+
+.option-btn{
+    color: navy;
+    outline:none;
+    border: none;
+    display: inline-block;
+    padding: 5px 5px;
+    margin: 10px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    position: relative;
+    top: -3px;
+    box-shadow: 0.25px 3px grey;
 }
