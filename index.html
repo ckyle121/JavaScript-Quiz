@@ -10,11 +10,27 @@
 <body>
     <header>
         <h1 class="page-title">JavaScript Quiz</h1>
-        <p>Click the button below to start the quiz</p>
-        <button class="start-btn">BEGIN</button>
+        <p class="instructions">Click the button below to start the quiz</p>
+        <button class="start-btn" id="start-btn">Begin Quiz</button>
+        <h3>Time Remaining:
+            <span class="timer" id="timer"></span>
+        </h3>
     </header>
-    <main>
+    <main class="page-content">
+        <form id="question-content">
 
+            <h2 id="question-text"></h2>
+
+            <div id="answer-options">
+                <button id="option0" class="option-btn"></button>
+                <button id="option1" class="option-btn"></button>
+                <button id="option2" class="option-btn"></button>
+                <button id="option3" class="option-btn"></button>
+            </div>
+
+            <h3 id="score">Score:</h3>
+
+        </form>
     </main> 
     <footer>
         &copy; 2022 by Caroline Kyle
