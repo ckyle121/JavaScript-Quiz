@@ -139,8 +139,13 @@ function endQuiz(){
     document.querySelector("#timer").setAttribute("hidden");
 }
 
+// when user hits submit button it adds their score and initials to the leaderboard
+var submitButton = document.querySelector("#initials-btn")
+
+submitButton.addEventListener("click", saveScore);
+
 // create function to save score of user
-var saveScore = function(event){
+function saveScore(event){
     // disable refresh 
     event.preventDefault();
 
@@ -161,23 +166,20 @@ var saveScore = function(event){
 
     // hide questions because game is over 
     hideQuestoins();
+
+    // show the top scores
+    displayLeaderboard();
 }
 
-// when user hits submit button it adds their score and initials to the leaderboard
-var submitButton = document.querySelector("#initials-btn")
-
-submitButton.addEventListener("click", saveScore);
-
-
 // update leaderboard in local storage
-var updateLeaderboard = function(highScores){
+function updateLeaderboard(highScores){
     let leaderboard = getLeaderboard();
     leaderboard.push(highScores);
     localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
 }
 
 // get leaderboard from local storage 
-var getLeaderboard = function(){
+function getLeaderboard(){
     let storedLeaderboard = localStorage.getItem("leaderboard");
     // if nothing in local storage add to existing 
     if (storedLeaderboard !== null){
@@ -188,4 +190,32 @@ var getLeaderboard = function(){
         leaderboard = [];
     }
     return leaderboard;
+}
+
+// display high scores from least to greatest
+function sortLeaderboard(){
+    let leaderboard = getLeaderboard();
+    if (!leaderboard){
+        return;
+    }
+
+    leaderboard.sort(function(a, b){
+        return b.score - a.score;
+    });
+
+    return leaderboard;
+}
+
+// 
+function displayLeaderboard(){
+    leaderboardList = document.querySelector("#leaderboard-list");
+    leaderboardList.innerHTML = "";
+    let leaderboard = sortLeaderboard();
+    for (let i = 0; i < leaderboard.length; i++){
+        let userEntry = leaderboard[i];
+        let newScore = document.createElement("li");
+        newScore.textContent = 
+            highScores.initials + " : " + highScores.userScore;
+        leaderboardList.append(newScore);
+    }
 }
