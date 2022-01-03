@@ -32,7 +32,7 @@ header, footer{
     box-shadow: 0.25px 3px grey;
 }
 
-.start-btn:hover, .option-btn:hover{
+.start-btn:hover, .option-btn:hover, initals-btn:hover{
     background: navy;
     color: moccasin;
     text-shadow: none;

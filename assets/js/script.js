@@ -184,6 +184,7 @@ function getLeaderboard(){
     // if nothing in local storage add to existing 
     if (storedLeaderboard !== null){
         let leaderboard = JSON.parse(storedLeaderboard);
+        console.log(leaderboard)
         return leaderboard;
     }
     else{
@@ -208,14 +209,14 @@ function sortLeaderboard(){
 
 // 
 function displayLeaderboard(){
-    leaderboardList = document.querySelector("#leaderboard-list");
+    var leaderboardList = document.querySelector("#leaderboard-list");
     leaderboardList.innerHTML = "";
     let leaderboard = sortLeaderboard();
     for (let i = 0; i < leaderboard.length; i++){
         let userEntry = leaderboard[i];
         let newScore = document.createElement("li");
         newScore.textContent = 
-            highScores.initials + " : " + highScores.userScore;
+            userEntry.initials + " : " + userEntry.userScore;
         leaderboardList.append(newScore);
     }
 }
