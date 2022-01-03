@@ -38,24 +38,35 @@ var quizOver = false;
 var time_remaining = 121;
 
 // Reference variables to html 
-var questionContentEl = document.querySelector("#questions-list");
+var questionContentEl = document.querySelector("#question-content");
 var startBtn = document.querySelector("#start-btn")
 
+// function to hide quiz before user hits begin
+function hideQuestoins(){
+    questionContentEl.setAttribute("hidden", true)
+}
+
+// start quiz when user hits begin button 
+startBtn.addEventListener("click", startQuiz);
 
 // function to start timer/quiz
+function startQuiz() {
+    // disable hidden questions function
+    hideQuestoins();
+    questionContentEl.removeAttribute("hidden");
 
 
-var startQuiz = function(){
+    // initalize current question
+    currentQuestion = 0;
     displayQuestion();
     countdownTimer();
 };
 
-document.querySelector("#start-btn").addEventListener("click", startQuiz);
+
 
 // create function to display quiz questions 
 
-var displayQuestion = function(){
-    let currentQuestion = 0;
+function displayQuestion(){
     let question = questions[currentQuestion];
     let answerOptions = question.options;
 
@@ -69,15 +80,18 @@ var displayQuestion = function(){
     }   
 }
 
+// when user clicks on answer, determine if its correct or incorrect
+
+document.querySelector("#answer-options").addEventListener("click",checkAnswer);
 
 
 // determine if content for selected button and correct answer is the same 
-var correctAnswer = function(answerBtn){
+function correctAnswer(answerBtn){
     return answerBtn.textContent === questions[currentQuestion].answer;
 }
 
 // check to see if answer selected is correct
-var checkAnswer = function(event){
+function checkAnswer(event){
     let answerBtn = event.target; 
     // correct answer increases the score 
     if (correctAnswer(answerBtn)){
@@ -110,7 +124,7 @@ document.querySelector("#answer-options").addEventListener("click", checkAnswer)
 
 // create a countdown function for the timer
 
-var countdownTimer = function(){
+function countdownTimer(){
     time_remaining--;
     if (time_remaining < 0) {
         endQuiz();
@@ -119,9 +133,10 @@ var countdownTimer = function(){
     timerDisplay.textContent = time_remaining;
 }
 
-var endQuiz = function(){
+function endQuiz(){
     let finalScore = document.querySelector("#score")
     finalScore.textContent = score;
+    document.querySelector("#timer").setAttribute("hidden");
 }
 
 // create function to save score of user
@@ -138,16 +153,23 @@ var saveScore = function(event){
 
     let highScores = {
         initials: initials.value,
-        highScore: score
+        userScore: score
     };
+
+    // add user to leaderboard for local storage
+    updateLeaderboard(highScores);
+
+    // hide questions because game is over 
+    hideQuestoins();
 }
 
-let submitButton = document.querySelector("#initials-btn")
+// when user hits submit button it adds their score and initials to the leaderboard
+var submitButton = document.querySelector("#initials-btn")
 
 submitButton.addEventListener("click", saveScore);
 
 
-// update leaderboard to local storage
+// update leaderboard in local storage
 var updateLeaderboard = function(highScores){
     let leaderboard = getLeaderboard();
     leaderboard.push(highScores);
