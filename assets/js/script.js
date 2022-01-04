@@ -137,7 +137,8 @@ document.querySelector("#answer-options").addEventListener("click", checkAnswer)
 function endQuiz(){
     let finalScore = document.querySelector("#score")
     finalScore.textContent = "You scored " + score + " points!";
-    document.querySelector("#timer").setAttribute("hidden");
+    document.querySelector("#timer").setAttribute("hidden", true);
+    document.querySelector("question-content").setAttribute("hidden", true);
 }
 
 // when user hits submit button it adds their score and initials to the leaderboard
