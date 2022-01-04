@@ -70,7 +70,6 @@ function timerCountdown(){
     time_remaining--;
     if (time_remaining < 0) {
         endQuiz();
-        document.querySelector("#question-content").setAttribute("hidden");
     }
     timerDisplay.textContent = time_remaining; 
 }
@@ -137,8 +136,9 @@ document.querySelector("#answer-options").addEventListener("click", checkAnswer)
 function endQuiz(){
     let finalScore = document.querySelector("#score")
     finalScore.textContent = "You scored " + score + " points!";
-    document.querySelector("#timer").setAttribute("hidden", true);
-    document.querySelector("question-content").setAttribute("hidden", true);
+    document.querySelector("#time-remaining").setAttribute("hidden", true);
+    document.querySelector("#question-text").setAttribute("hidden", true);
+    document.querySelector("#answer-options").setAttribute("hidden", true);
 }
 
 // when user hits submit button it adds their score and initials to the leaderboard
