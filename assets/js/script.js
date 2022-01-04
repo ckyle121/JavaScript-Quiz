@@ -35,12 +35,13 @@ var questions = [
 // initialize variables 
 var score = 0;
 var quizOver = false;
-var time_remaining = 121;
+var time_remaining = 60;
 currentQuestion = 0;
 
 // Reference variables to html 
 var questionContentEl = document.querySelector("#question-content");
 var startBtn = document.querySelector("#start-btn")
+let timerDisplay = document.querySelector("#timer")
 
 // function to hide quiz before user hits begin
 function hideQuestoins(){
@@ -56,15 +57,22 @@ function startQuiz() {
     hideQuestoins();
     questionContentEl.removeAttribute("hidden");
 
-
     // initalize current question
     displayQuestion();
 
     // start timer
-    countdownTimer();
+    intervalID = setInterval(timerCountdown, 1000);
 };
 
+// create a countdown function for the timer
 
+function timerCountdown(){
+    time_remaining--;
+    if (time_remaining < 0) {
+        endQuiz();
+    }
+    timerDisplay.textContent = time_remaining; 
+}
 
 // create function to display quiz questions 
 
@@ -124,20 +132,11 @@ function checkAnswer(event){
 
 document.querySelector("#answer-options").addEventListener("click", checkAnswer)
 
-// create a countdown function for the timer
-
-function countdownTimer(){
-    time_remaining--;
-    if (time_remaining < 0) {
-        endQuiz();
-    }
-    let timerDisplay = document.querySelector("#timer")
-    timerDisplay.textContent = time_remaining;
-}
 
 function endQuiz(){
     let finalScore = document.querySelector("#score")
-    finalScore.textContent = score;
+    finalScore.textContent = "You scored " + score + " points!";
+    document.querySelector("#question-content").setAttribute("hidden");
     document.querySelector("#timer").setAttribute("hidden");
 }
 

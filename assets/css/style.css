@@ -65,3 +65,7 @@ header, footer{
     top: -3px;
     box-shadow: 0.25px 3px grey;
 }
+
+li{
+    list-style-type: none;
+}
