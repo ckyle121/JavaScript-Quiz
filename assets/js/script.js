@@ -36,6 +36,7 @@ var questions = [
 var score = 0;
 var quizOver = false;
 var time_remaining = 121;
+currentQuestion = 0;
 
 // Reference variables to html 
 var questionContentEl = document.querySelector("#question-content");
@@ -57,8 +58,9 @@ function startQuiz() {
 
 
     // initalize current question
-    currentQuestion = 0;
     displayQuestion();
+
+    // start timer
     countdownTimer();
 };
 
@@ -201,7 +203,7 @@ function sortLeaderboard(){
     }
 
     leaderboard.sort(function(a, b){
-        return b.score - a.score;
+        return b.userScore - a.userScore;
     });
 
     return leaderboard;

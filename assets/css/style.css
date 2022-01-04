@@ -32,7 +32,7 @@ header, footer{
     box-shadow: 0.25px 3px grey;
 }
 
-.start-btn:hover, .option-btn:hover, initals-btn:hover{
+.start-btn:hover, .option-btn:hover, .submit-btn:hover{
     background: navy;
     color: moccasin;
     text-shadow: none;
@@ -46,6 +46,20 @@ header, footer{
     padding: 5px 5px;
     margin: 10px;
     font-size: 1.5rem;
+    border-radius: 10px;
+    position: relative;
+    top: -3px;
+    box-shadow: 0.25px 3px grey;
+}
+
+.submit-btn{
+    color: navy;
+    outline:none;
+    border: none;
+    display: inline-block;
+    padding: 5px 5px;
+    margin: 10px;
+    font-size: 0.85rem;
     border-radius: 10px;
     position: relative;
     top: -3px;
